@@ -1,6 +1,6 @@
-# 🎓 Student Management System (Spring Boot + JDBC + PostgreSQL)
+#  Student Management System (Spring Boot + JDBC + PostgreSQL)
 
-## 📌 Project Description
+## Project Description
 
 This project is a **Spring Boot application** that connects to a **PostgreSQL database** using **JDBC (JdbcTemplate)** and performs **CRUD operations** on a Student table.
 
@@ -8,9 +8,9 @@ A simple **frontend UI (HTML, CSS, JavaScript)** is also integrated to interact 
 
 ---
 
-## 🚀 Features
+##  Features
 
-### ✔ Backend (Spring Boot + JDBC)
+###  Backend (Spring Boot + JDBC)
 
 * Create a new student
 * Fetch all students
@@ -18,7 +18,7 @@ A simple **frontend UI (HTML, CSS, JavaScript)** is also integrated to interact 
 * Update student details
 * Delete student record
 
-### ✔ Frontend
+###  Frontend
 
 * Add student using form
 * View all students
@@ -28,7 +28,7 @@ A simple **frontend UI (HTML, CSS, JavaScript)** is also integrated to interact 
 
 ---
 
-## 🧱 Technologies Used
+##  Technologies Used
 
 * Java 21
 * Spring Boot
@@ -38,7 +38,7 @@ A simple **frontend UI (HTML, CSS, JavaScript)** is also integrated to interact 
 
 ---
 
-## 🗄️ Database Setup (PostgreSQL)
+##  Database Setup (PostgreSQL)
 
 ### 1. Create Database
 
@@ -59,7 +59,7 @@ CREATE TABLE student (
 
 ---
 
-## ⚙️ Configuration (`application.properties`)
+##  Configuration (`application.properties`)
 
 ```properties
 spring.application.name=examStudentM
@@ -75,7 +75,7 @@ spring.jpa.hibernate.ddl-auto=none
 
 ---
 
-## 🧩 Project Structure
+##  Project Structure
 
 ```
 com.example.examStudentM
@@ -87,7 +87,7 @@ com.example.examStudentM
 ```
 
 
-## 🌐 REST API Endpoints
+##  REST API Endpoints
 
 | Method | Endpoint       | Description       |
 | ------ | -------------- | ----------------- |
@@ -99,7 +99,7 @@ com.example.examStudentM
 
 ---
 
-## 🎨 Frontend
+##  Frontend
 
 Frontend is built using:
 
@@ -116,12 +116,12 @@ Frontend is built using:
 
 ---
 
-## 📷 UI Preview
+##  UI Preview
 <img width="1363" height="591" alt="Screenshot 2026-04-29 152521" src="https://github.com/user-attachments/assets/1367e89f-3411-4083-8db4-25a11607b99f" />
 
 ---
 
-## ▶️ How to Run
+##  How to Run
 
 1. Clone the repository
 2. Configure PostgreSQL credentials
@@ -140,7 +140,7 @@ http://localhost:8080/
 
 ---
 
-## ⚠️ Important Notes
+##  Important Notes
 
 * No Hibernate (pure JDBC used)
 * SQL queries written manually
@@ -150,7 +150,7 @@ http://localhost:8080/
 
 ---
 
-## 🎯 Conclusion
+##  Conclusion
 
 This project demonstrates:
 
@@ -161,6 +161,6 @@ This project demonstrates:
 
 ---
 
-## 👩‍💻 Author
+##  Author
 
 Neha Singh
