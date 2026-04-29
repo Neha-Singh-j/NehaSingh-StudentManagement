@@ -2,32 +2,46 @@
 <html>
 <head>
     <title>Student CRUD</title>
+
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea, #764ba2);
             margin: 0;
-            padding: 0;
         }
 
         .container {
-            width: 420px;
-            margin: 60px auto;
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
             background: white;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            transition: 0.3s;
         }
 
-        .container:hover {
-            transform: translateY(-5px);
+        h1 {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
         }
 
         h2 {
-            text-align: center;
             color: #333;
             margin-bottom: 15px;
+        }
+
+        .grid {
+            display: flex;
+            gap: 30px;
+        }
+
+        .form-section {
+            flex: 1;
+        }
+
+        .list-section {
+            flex: 2;
         }
 
         input {
@@ -36,31 +50,25 @@
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 8px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 5px rgba(102,126,234,0.5);
         }
 
         button {
-            width: 100%;
-            padding: 12px;
+            padding: 10px;
             margin-top: 10px;
             background: linear-gradient(to right, #667eea, #764ba2);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
-            transition: 0.3s;
         }
 
         button:hover {
             opacity: 0.9;
-            transform: scale(1.02);
+        }
+
+        .load-btn {
+            width: 100%;
+            margin-bottom: 15px;
         }
 
         ul {
@@ -76,53 +84,53 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        li div {
-            display: flex;
-            gap: 8px;
+        .actions button {
+            margin-left: 8px;
+            padding: 6px 10px;
+            font-size: 13px;
         }
 
-        /* Edit Button */
-        li button:first-child {
+        .edit-btn {
             background: #28a745;
         }
 
-        /* Delete Button */
-        li button:last-child {
+        .delete-btn {
             background: #dc3545;
         }
 
-        li button {
-            width: auto;
-            padding: 6px 10px;
-            font-size: 13px;
-            border-radius: 6px;
-        }
-
-        .section {
-            margin-top: 30px;
-        }
     </style>
+
 </head>
 <body>
 
+<h1> Student Management Dashboard</h1>
+
 <div class="container">
 
-    <h2>Student Form</h2>
+    <div class="grid">
 
-    <input type="text" id="name" placeholder="Enter Name">
-    <input type="text" id="email" placeholder="Enter Email">
-    <input type="text" id="course" placeholder="Enter Course">
+        <!-- FORM -->
+        <div class="form-section">
+            <h2>Student Form</h2>
 
-    <button onclick="addStudent()">Add Student</button>
+            <input type="text" id="name" placeholder="Enter Name">
+            <input type="text" id="email" placeholder="Enter Email">
+            <input type="text" id="course" placeholder="Enter Course">
 
-    <div class="section">
-        <h2>Student List</h2>
-        <button onclick="loadStudents()">Load Students</button>
+            <button id="mainBtn" onclick="addStudent()">Add Student</button>
+        </div>
 
-        <ul id="list"></ul>
+        <!-- LIST -->
+        <div class="list-section">
+            <h2>Student List</h2>
+
+            <button class="load-btn" onclick="loadStudents()">Load Students</button>
+
+            <ul id="list"></ul>
+        </div>
+
     </div>
 
 </div>
@@ -133,14 +141,14 @@
     // CREATE
     function addStudent() {
         const student = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            course: document.getElementById("course").value
+            name: name.value,
+            email: email.value,
+            course: course.value
         };
 
         fetch(BASE_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify(student)
         })
         .then(() => {
@@ -152,74 +160,70 @@
     // READ
     function loadStudents() {
         fetch(BASE_URL)
-            .then(res => res.json())
-            .then(data => {
-                let list = document.getElementById("list");
-                list.innerHTML = "";
+        .then(res => res.json())
+        .then(data => {
+            list.innerHTML = "";
 
-                data.forEach(s => {
-                    let li = document.createElement("li");
+            data.forEach(s => {
+                let li = document.createElement("li");
 
-                    li.innerHTML = `
-                        ${s.id} | ${s.name} (${s.course})
-                        <div>
-                            <button onclick="editStudent(${s.id}, '${s.name}', '${s.email}', '${s.course}')">Edit</button>
-                            <button onclick="deleteStudent(${s.id})">Delete</button>
-                        </div>
-                    `;
+                li.innerHTML = `
+                    ${s.id} | ${s.name} (${s.course})
+                    <div class="actions">
+                        <button class="edit-btn" onclick="editStudent(${s.id}, '${s.name}', '${s.email}', '${s.course}')">Edit</button>
+                        <button class="delete-btn" onclick="deleteStudent(${s.id})">Delete</button>
+                    </div>
+                `;
 
-                    list.appendChild(li);
-                });
+                list.appendChild(li);
             });
+        });
     }
 
     // DELETE
     function deleteStudent(id) {
-        fetch(BASE_URL + "/" + id, {
-            method: "DELETE"
-        })
+        fetch(BASE_URL + "/" + id, { method: "DELETE" })
         .then(() => loadStudents());
     }
 
-    // EDIT (fill form)
-    function editStudent(id, name, email, course) {
-        document.getElementById("name").value = name;
-        document.getElementById("email").value = email;
-        document.getElementById("course").value = course;
+    // EDIT
+    function editStudent(id, nameVal, emailVal, courseVal) {
+        name.value = nameVal;
+        email.value = emailVal;
+        course.value = courseVal;
 
-        // Change button behavior to UPDATE
-        const btn = document.querySelector("button");
-        btn.innerText = "Update Student";
-        btn.onclick = () => updateStudent(id);
+        mainBtn.innerText = "Update Student";
+        mainBtn.onclick = () => updateStudent(id);
     }
 
     // UPDATE
     function updateStudent(id) {
         const student = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            course: document.getElementById("course").value
+            name: name.value,
+            email: email.value,
+            course: course.value
         };
 
         fetch(BASE_URL + "/" + id, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify(student)
         })
         .then(() => {
             clearForm();
-            document.querySelector("button").innerText = "Add Student";
-            document.querySelector("button").onclick = addStudent;
+            mainBtn.innerText = "Add Student";
+            mainBtn.onclick = addStudent;
             loadStudents();
         });
     }
 
-    // Clear form
+    // CLEAR
     function clearForm() {
-        document.getElementById("name").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("course").value = "";
+        name.value = "";
+        email.value = "";
+        course.value = "";
     }
 </script>
+
 </body>
 </html>

@@ -21,19 +21,22 @@ public class StudentService {
         return repo.save(s);
     }
 
-    // fetch all students
-    public List<Student> getAll() {
-        return repo.findAll();
-    }
+    // fetch all students  from db 
+    // public List<Student> getAll() {
+    //     return repo.findAll();
+    // }
 //    manually adding
-//    public List<Student> getAll() {
-//        List<Student> list = new ArrayList<>();
-//
-//        list.add(new Student(1, "Neha", "neha@gmail.com", "CSE"));
-//        list.add(new Student(2, "Rahul", "rahul@gmail.com", "IT"));
-//
-//        return list;
-//    }
+   public List<Student> getAll() {
+       List<Student> list = new ArrayList<>();
+
+       list.add(new Student(1, "Neha", "neha@gmail.com", "CSE"));
+        list.add(new Student(2, "Rahul", "rahul@gmail.com", "IT"));
+
+        list.add(new Student(3, "Aman", "aman@gmail.com", "ECE"));
+        list.add(new Student(4, "Priya", "priya@gmail.com", "ME"));
+        list.add(new Student(5, "Karan", "karan@gmail.com", "CSE"));
+        return list;
+   }
 
     // get a single student by id
     public Student getById(int id) {
